@@ -11,17 +11,29 @@
 動畫閃爍綠色背景顏色: rgba(0, 177, 93, 0.5)
 動畫閃爍紅色背景顏色: rgba(255, 91, 90, 0.5) */
 @theme {
-  --color-order-book-bg: #131B29;
-  --color-order-book-text: #F0F4F8;
+  --color-order-book-bg: #131b29;
+  --color-order-book-text: #f0f4f8;
   --color-quote-head: #8698aa;
   --color-buy-price: #00b15d;
-  --color-sell-price: #FF5B5A;
-  --color-quote-row-hover: #1E3059;
+  --color-sell-price: #ff5b5a;
+  --color-quote-row-hover: #1e3059;
   --color-buy-total-bar: rgba(16, 186, 104, 0.12);
   --color-sell-total-bar: rgba(255, 90, 90, 0.12);
   --color-default-total-bar: rgba(134, 152, 170, 0.12);
   --color-blink-green: rgba(0, 177, 93, 0.5);
   --color-blink-red: rgba(255, 91, 90, 0.5);
+  --animate-blink: blink 0.1s linear;
+  --animate-size-blink: blink 0.3s linear;
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
 }
 
 :root {
@@ -35,11 +47,4 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  box-sizing: border-box;
 }
