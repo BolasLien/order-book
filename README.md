@@ -1,54 +1,46 @@
-# React + TypeScript + Vite
+# Order Book
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 專案描述
 
-Currently, two official plugins are available:
+這是一個訂單簿應用程式，使用 WebSocket 來接收訂單簿和最新價格的資料，並顯示在頁面上。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 使用的前端技術
 
-## Expanding the ESLint configuration
+- Vite
+- React
+- TypeScript
+- Tailwind CSS
+- WebSocket
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 安裝與啟動
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- Node.js 版本需求：18+
+- 本專案使用 [pnpm](https://pnpm.io/zh-TW) 建立。
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. Clone 專案：
+   ```
+   git clone git@github.com:BolasLien/order-book.git
+   ```
+2. 安裝相依套件：
+   ```
+   pnpm install
+   ```
+3. 啟動開發模式：
+   ```
+   pnpm dev
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 說明
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+![alt text](./docs/image.png)
+
+- 啟動服務，預設頁面是 http://localhost:5173/
+- 進入頁面後，點擊 **Open WebSocket 按鈕**連接 WebSocket 服務。
+- 頁面上會顯示最新價格，以及買賣的 orderbook。
+- 買賣的 orderbook 最多顯示 8 筆。
+- 買賣的 orderbook 會以千分位逗號分隔數字。
+- 最新價格在中間的位置，文字顏色會根據前一次的價格變化而變色。
+- 當滑鼠移到 orderbook 上時，整列會變色。
+- 當有新的價格出現時，會有背景提示高亮效果。
+- 當數量有變化時，會有背景提示高亮效果。
+- 買賣的 orderbook 會顯示累積總數的百分比的背景色。
