@@ -25,15 +25,6 @@ const calculatePercentage = (part: string, total: string | number): number => {
   return (partNum / totalNum) * 100
 }
 
-// Demo data
-const demoOrders: Quote[] = Array.from({length: 8}, (_, index) => ({
-  price: '21699.0' + index,
-  size: '3691' + index,
-  total: `${33 * (index + 1)}`,
-  isNew: index === 3,
-  sizeDirection: index === 5 ? 'up' : index === 7 ? 'down' : 'same',
-}))
-
 const newQuoteBg = {
   buy: `before:bg-blink-green`,
   sell: `before:bg-blink-red`,
@@ -51,7 +42,15 @@ const totalBg = {
 }
 
 const QuoteGroup = ({orders, type}: QuoteGroupProps) => {
-  const data = orders || demoOrders
+  const placeholderData: Quote[] = Array.from({length: 8}, (_, index) => ({
+    price: '21699.0' + index,
+    size: '3691' + index,
+    total: type === 'buy' ? `${33 * (index + 1)}` : `${33 * (8 - index)}`,
+    isNew: index === 3,
+    sizeDirection: index === 5 ? 'up' : index === 7 ? 'down' : 'same',
+  }))
+
+  const data = orders || placeholderData
 
   // 取得所有報價的最大累積總量
   const maxTotal = Math.max(...data.map(order => parseFloat(order.total || '0')))
