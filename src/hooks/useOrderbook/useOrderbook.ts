@@ -34,7 +34,7 @@ type OrderbookResponse = {
  * @param isBuy 是否為買單（bids = true, asks = false）
  * @returns 附加 `total` 的新陣列
  */
-function updateQuiteTotal(Quote: Quote[], isBuy: boolean): Quote[] {
+function updateQuoteTotal(Quote: Quote[], isBuy: boolean): Quote[] {
   let total = 0
 
   const addToTotal = (order: Quote) => {
@@ -42,14 +42,9 @@ function updateQuiteTotal(Quote: Quote[], isBuy: boolean): Quote[] {
     return {...order, total: total.toString()}
   }
 
-  if (!isBuy) {
-    // 賣單需要反轉順序
-    const reversedQuote = [...Quote].map(addToTotal)
+  const newQuote = [...Quote].map(addToTotal)
 
-    return reversedQuote.reverse()
-  }
-
-  return [...Quote].map(addToTotal)
+  return isBuy ? newQuote : newQuote.reverse() // 賣單需要反轉順序
 }
 
 const toQuote = (order: [string, string]): Quote => {
@@ -116,7 +111,7 @@ const useOrderbook = (open: boolean = false) => {
       const res: OrderbookResponse = JSON.parse(event.data)
       // console.log('收到訊息:', res)
 
-      if (!res.data) return
+      if (!res.data || !res.topic.includes('update:BTCPFC_0')) return
 
       if (res.data.seqNum !== res.data.prevSeqNum + 1) {
         console.error('訊息順序錯誤，重新連線')
@@ -139,8 +134,8 @@ const useOrderbook = (open: boolean = false) => {
 
         const newOrderbook = {
           ...res.data,
-          bids: updateQuiteTotal(bids, true),
-          asks: updateQuiteTotal(asks, false),
+          bids: updateQuoteTotal(bids, true),
+          asks: updateQuoteTotal(asks, false),
         }
 
         setOrderbook(newOrderbook)
@@ -169,8 +164,8 @@ const useOrderbook = (open: boolean = false) => {
           currentBook.asks = currentBook.asks.slice(0, 8)
 
           // 重新計算累計量
-          currentBook.bids = updateQuiteTotal(currentBook.bids, true)
-          currentBook.asks = updateQuiteTotal(currentBook.asks, false)
+          currentBook.bids = updateQuoteTotal(currentBook.bids, true)
+          currentBook.asks = updateQuoteTotal(currentBook.asks, false)
 
           // 更新其餘資料
           currentBook.seqNum = res.data.seqNum
