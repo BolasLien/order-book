@@ -11,6 +11,7 @@
 - TypeScript
 - Tailwind CSS
 - WebSocket
+- Vitest
 
 ## 安裝與啟動
 
