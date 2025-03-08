@@ -4,6 +4,8 @@
 
 這是一個訂單簿應用程式，使用 WebSocket 來接收訂單簿和最新價格的資料，並顯示在頁面上。
 
+DEMO: [https://bolaslien.github.io/order-book/](https://bolaslien.github.io/order-book/)
+
 ## 使用的前端技術
 
 - Vite
