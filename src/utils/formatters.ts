@@ -22,6 +22,6 @@ export const formatNumber = (value: string | number, decimals?: number): string 
 
   return formattedValue.toLocaleString('en-US', {
     minimumFractionDigits: decimals || 0,
-    maximumFractionDigits: decimals !== undefined ? decimals : 8,
+    maximumFractionDigits: decimals !== undefined ? decimals : 2, // 最多保留 2 位小數
   })
 }
